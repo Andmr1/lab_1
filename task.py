@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 from time import sleep
 import random
+import codecs
 count_good = 0
 count_bad = 0
 
@@ -25,7 +26,7 @@ def find_good(url_, pages, count_good_):
             elif count_good_ > 100:
                 name = "0" + str(count_good_)
             if count_good_ < 999:
-                file = open(f"dataset/good/{name}.txt", "w", "utf-8")
+                file = codecs.open(u''+"dataset/good/"+name+".txt", "w", "utf-8")
                 file.write(film_name.text + "\n")
                 file.write(rev.text)
                 file.close
@@ -52,7 +53,7 @@ def find_bad(url_, pages, count_bad_):
             elif count_bad_ > 100:
                 name = "0" + str(count_bad_)
             if count_bad_ < 999:
-                file = open(f"dataset/good/{name}.txt", "w", "utf-8")
+                file = codecs.open(u''+"dataset/bad/"+name+".txt", "w", "utf-8")
                 file.write(film_name.text + "\n")
                 file.write(rev.text)
                 file.close
@@ -77,11 +78,11 @@ def find_bad_new(url_, pages, count_bad_):
                 name = "00" + str(count_bad_)
             elif count_bad_ > 100:
                 name = "0" + str(count_bad_)
-            film_name = source.find("p", class_="film").get("span").text
+            film_name = source.find("p", class_="film").get("span")
             rev = source.find("span", class_="_reachbanner_").text
             if count_bad_ < 999:
-                file = open(f"dataset/good/{name}.txt", "w", "utf-8")
-                file.write(film_name + "\n")
+                file = codecs.open(u''+"dataset/bad/"+name+".txt", "w", "utf-8")
+                file.write(str(film_name) + "\n")
                 file.write(rev)
                 file.close
             count_bad_ += 1
